@@ -1,9 +1,18 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const Cart = () => {
+const Cart = ({ playerPrice }) => {
+  const [price, setPrice] = useState(playerPrice);
+
+  useEffect(() => {
+    const getPlayerPrice = localStorage.getItem("playerPrice");
+    setPrice(getPlayerPrice);
+  }, [playerPrice]);
+
   return (
     <div>
-      <div className="w-full bg-secondar text-black">
+      <div className="w-full bg-secondar text-black sticky">
         <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
           <div>
             <p className="lg:text-4xl text-3xl font-black leading-9 text-gray-800">
@@ -32,7 +41,7 @@ const Cart = () => {
             <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
               <p className="text-2xl leading-normal text-gray-800 ">Total:</p>
               <p className="text-2xl font-bold leading-normal text-right text-gray-800 ">
-                240
+                {price}
               </p>
             </div>
             <button className="text-base leading-none w-full py-5  border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 dark:hover:bg-gray-700">

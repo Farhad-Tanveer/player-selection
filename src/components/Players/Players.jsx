@@ -5,6 +5,7 @@ import Player from "../Player/Player";
 
 const Players = () => {
   const [players, setPlayers] = useState([]);
+  const [playerPrice, setPlayerPrice] = useState("");
   useEffect(() => {
     fetch("players.json")
       .then((res) => res.json())
@@ -12,7 +13,15 @@ const Players = () => {
   }, []);
 
   const handleAddToCart = (player) => {
-    console.log("add to cart");
+    const previouslyAdded = JSON.parse(localStorage.getItem("playerPrice"));
+    if (previouslyAdded) {
+      const sum = previouslyAdded + player.price;
+      localStorage.setItem("playerPrice", sum);
+      setPlayerPrice(sum);
+    } else {
+      localStorage.setItem("playerPrice", player.price);
+      setPlayerPrice(player.price);
+    }
   };
   return (
     <div className="grid  grid-cols-1 lg:grid-cols-4 gap-3 p-5">
@@ -26,7 +35,7 @@ const Players = () => {
         ))}
       </div>
       <div>
-        <Cart></Cart>
+        <Cart playerPrice={playerPrice}></Cart>
       </div>
     </div>
   );

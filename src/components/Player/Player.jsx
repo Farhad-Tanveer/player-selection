@@ -20,7 +20,7 @@ const Player = (props) => {
               onClick={() => handleAddToCart(props.player)}
               className="btn btn-primary"
             >
-              Add to Cart
+              Add to Transfer
               <FontAwesomeIcon icon={faShoppingCart} />
             </button>
           </div>
